@@ -1,5 +1,63 @@
 @use "../abstracts/bootstrap.scss";
 
+.navigation-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  &--site {
+    order: 1;
+  }
+
+  &--user {
+    top: 160px;
+    order: 2;
+  }
+
+  &--promotions {
+    display: none;
+    order: 3;
+  }
+
+  @media (min-width: bootstrap.$tablet-width) {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 33px;
+
+    &--site {
+      grid-area: navs;
+      order: 2;
+    }
+
+    &--user {
+      grid-area: navu;
+      top: 0;
+      order: 1;
+    }
+  }
+
+  @media (min-width: bootstrap.$desktop-width) {
+    &--site .navigation-list__item {
+      min-width: 175px;
+    }
+
+    &--promotions {
+      display: flex;
+      grid-area: navp;
+    }
+
+    &--promotions .navigation-list__item {
+      min-width: 175px;
+    }
+  }
+}
+
+.navigation-list__icon-text {
+  @media (min-width: bootstrap.$tablet-width) {
+    visibility: hidden;
+  }
+}
+
 .navigation-list__item {
   display: flex;
   align-items: center;
@@ -8,10 +66,27 @@
   padding-bottom: 27.5px;
   padding-left: 76px;
   background-color: bootstrap.$colorWhite;
-  box-shadow: 0 1px 0 #ececec, inset 0 1px 0 #ececec;
+  box-shadow: inset 0 1px 0 bootstrap.$colorLightGrey;
+
+  @media (min-width: bootstrap.$tablet-width) {
+    padding: 0;
+    box-shadow: none;
+    background-color: inherit;
+
+    &--search {
+      border-left: 1px solid bootstrap.$colorLightGrey;
+      border-right: 1px solid bootstrap.$colorLightGrey;
+    }
+
+    &--card {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
 }
 
 .navigation-list__link {
+  position: relative;
   display: flex;
   align-items: center;
   font-weight: 700;
@@ -19,9 +94,50 @@
   line-height: 24px;
 
   @include bootstrap.link-reset;
+
+  @media (min-width: bootstrap.$tablet-width) {
+    font-size: 15px;
+
+    &:not(:first-child) {
+      padding-left: 30px;
+    }
+  }
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &:focus-within,
+  &:active {
+    opacity: 0.3;
+  }
+
+  &:hover .navigation-list__icon {
+    opacity: 1;
+    color: bootstrap.$colorGreen-primary;
+  }
 }
 
 .navigation-list__icon {
   position: absolute;
-  left: 30px;
+  fill: currentColor;
+  opacity: 0.2;
+
+  &--search {
+    left: -40px;
+  }
+
+  &--card {
+    left: -40px;
+  }
+
+  @media (min-width: bootstrap.$tablet-width) {
+    &--search {
+      left: 30px;
+    }
+
+    &--card {
+      left: -60px;
+    }
+  }
 }
